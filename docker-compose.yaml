@@ -2,19 +2,23 @@ version: '3'
 
 services:
   tuic:
-    image: ghcr.io/iks943/tuic:latest
+    image: ghcr.io/zenithiks/tuic:latest
     restart: always
     network_mode: "host"
     environment:
-      - SERVER_PORT=443
-      - TOKEN=xxx # 改为自己的密码
-      - IP=::0
+      - UUID=00000000-0000-0000-0000-000000000000 # 改为自己的UUID
+      - PASSWORD=xxx # 改为自己的密码
+      - CERTIFICATE=/opt/tuic/fullchain.pem
+      - PRIVATE_KEY=/opt/tuic/private.pem
       - CONGESTION_CONTROLLER=bbr
+      - UDP_RELAY_IPV6=false
+      - ZERO_RTT_HANDSHAKE=false
+      - DUAL_STACK=true
     volumes:
       - /root/fullchain.pem:/opt/tuic/fullchain.pem:ro
       - /root/private.pem:/opt/tuic/private.pem:ro
   # ss:
-  #   image: ghcr.io/iks943/ss:latest
+  #   image: ghcr.io/zenithiks/ss:latest
   #   restart: always
   #   network_mode: "host"
   #   environment:
@@ -23,7 +27,7 @@ services:
   #     - PASSWORD=xxx # 改为自己的密码
   #     - METHOD=chacha20-ietf-poly1305
   snell:
-    image: ghcr.io/iks943/snell:latest
+    image: ghcr.io/zenithiks/snell:latest
     restart: always
     network_mode: "host"
     environment:
@@ -38,5 +42,11 @@ services:
       - MODE=server
       - LISTEN=[::]:443
       - SERVER=127.0.0.1:8388 # 跟 snell/ss 监听的端口一致
-      - TLS=g.alicdn.com:443
+      - TLS=captive.apple.com:443;cloud.tencent.com:443
       - PASSWORD=xxx # 改为自己的密码
+      - ALPN=h2
+      - DISABLE_NODELAY=0
+      - FASTOPEN=1
+      - V3=1
+      - STRICT=1
+      - WILDCARD_SNI=authed

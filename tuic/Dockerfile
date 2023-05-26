@@ -9,21 +9,21 @@ RUN set -ex \
         && cp /usr/share/zoneinfo/$TZ /etc/localtime \
         && echo $TZ > /etc/timezone
 
-ARG VERSION=0.8.5
+ARG VERSION=1.0.0-pre-alpha1
 
 RUN set -ex \
     && ARCH=""; \
     if [ $TARGETPLATFORM == "linux/amd64" ]; then \
-        ARCH="x86_64-linux-gnu"; \
+        ARCH="x86_64-unknown-linux-gnu"; \
     elif [ $TARGETPLATFORM == "linux/arm64" ]; then \
-        ARCH="aarch64-linux-gnu"; \
+        ARCH="aarch64-unknown-linux-gnu"; \
     fi; \
-    wget -O tuic-server https://github.com/EAimTY/tuic/releases/download/${VERSION}/tuic-server-${VERSION}-${ARCH} \
+    wget -O tuic-server https://github.com/EAimTY/tuic/releases/download/tuic-server-${VERSION}/tuic-server-${VERSION}-${ARCH} \
     && chmod +x tuic-server
 
 FROM frolvlad/alpine-glibc:latest
 
-LABEL maintainer="iks943 <9955686@gmail.com>"
+LABEL maintainer="zenithiks <9955686@gmail.com>"
 
 RUN set -ex \
         && apk add --no-cache \
@@ -31,17 +31,22 @@ RUN set -ex \
 
 WORKDIR /opt/tuic
 
-ENV SERVER_PORT 443
-ENV TOKEN=
+ENV SERVER [::]:443
+ENV UUID 00000000-0000-0000-0000-000000000000
+ENV PASSWORD PASSWORD_0
 ENV CERTIFICATE /opt/tuic/fullchain.pem
 ENV PRIVATE_KEY /opt/tuic/private.pem
-ENV IP 0.0.0.0
 ENV CONGESTION_CONTROLLER cubic
-ENV MAX_IDLE_TIME 15000
-ENV AUTHENTICATION_TIMEOUT 1000
-ENV ALPN_PROTOCOL h3
-ENV MAX_UDP_RELAY_PACKET_SIZE 1500
-ENV LOG_LEVEL info
+ENV ALPN h3
+ENV UDP_RELAY_IPV6 true
+ENV ZERO_RTT_HANDSHAKE false
+ENV DUAL_STACK true
+ENV AUTH_TIMEOUT 3s
+ENV MAX_IDLE_TIME 10s
+ENV MAX_EXTERNAL_PACKET_SIZE 1500
+ENV GC_INTERVAL 3s
+ENV GC_LIFETIME 15s
+ENV LOG_LEVEL warn
 
 COPY --from=builder /etc/localtime /etc/localtime
 COPY --from=builder /etc/timezone /etc/timezone

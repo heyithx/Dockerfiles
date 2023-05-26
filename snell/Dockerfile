@@ -9,7 +9,7 @@ RUN set -ex \
         && cp /usr/share/zoneinfo/$TZ /etc/localtime \
         && echo $TZ > /etc/timezone
         
-ARG VERSION=v4.0.0
+ARG VERSION=v4.0.1
 
 RUN set -ex \
     && ARCH=""; \
@@ -24,7 +24,7 @@ RUN set -ex \
 
 FROM frolvlad/alpine-glibc:latest
 
-LABEL maintainer="iks943 <9955686@gmail.com>"
+LABEL maintainer="zenithiks <9955686@gmail.com>"
 
 RUN set -ex \
         && apk add --no-cache \
