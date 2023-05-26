@@ -6,12 +6,9 @@ services:
     restart: always
     network_mode: "host"
     environment:
-      - UUID=00000000-0000-0000-0000-000000000000 # 改为自己的UUID
-      - PASSWORD=xxx # 改为自己的密码
-      - CERTIFICATE=/opt/tuic/fullchain.pem
-      - PRIVATE_KEY=/opt/tuic/private.pem
+      - USERS=00000000-0000-0000-0000-000000000000:PASSWORD_0,00000000-0000-0000-0000-000000000001:PASSWORD_1 # 改为自己的UUID:PASSWORD
       - CONGESTION_CONTROLLER=bbr
-      - UDP_RELAY_IPV6=false
+      - UDP_RELAY_IPV6=true
       - ZERO_RTT_HANDSHAKE=false
       - DUAL_STACK=true
     volumes:

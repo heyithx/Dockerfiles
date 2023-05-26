@@ -9,7 +9,7 @@ RUN set -ex \
         && cp /usr/share/zoneinfo/$TZ /etc/localtime \
         && echo $TZ > /etc/timezone
 
-ARG VERSION=1.0.0-pre-alpha1
+ARG VERSION=1.0.0-pre-alpha2
 
 RUN set -ex \
     && ARCH=""; \
@@ -32,12 +32,11 @@ RUN set -ex \
 WORKDIR /opt/tuic
 
 ENV SERVER [::]:443
-ENV UUID 00000000-0000-0000-0000-000000000000
-ENV PASSWORD PASSWORD_0
+ENV USERS 00000000-0000-0000-0000-000000000000:PASSWORD_0,00000000-0000-0000-0000-000000000001:PASSWORD_1
 ENV CERTIFICATE /opt/tuic/fullchain.pem
 ENV PRIVATE_KEY /opt/tuic/private.pem
 ENV CONGESTION_CONTROLLER cubic
-ENV ALPN h3
+ENV ALPN h3,spdy/3.1
 ENV UDP_RELAY_IPV6 true
 ENV ZERO_RTT_HANDSHAKE false
 ENV DUAL_STACK true
