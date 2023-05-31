@@ -9,7 +9,7 @@ RUN set -ex \
         && cp /usr/share/zoneinfo/$TZ /etc/localtime \
         && echo $TZ > /etc/timezone
 
-ARG VERSION=1.0.0-pre-alpha2
+ARG VERSION=1.0.0-beta0
 
 RUN set -ex \
     && ARCH=""; \
@@ -41,8 +41,11 @@ ENV UDP_RELAY_IPV6 true
 ENV ZERO_RTT_HANDSHAKE false
 ENV DUAL_STACK true
 ENV AUTH_TIMEOUT 3s
+ENV TASK_NEGOTIATION_TIMEOUT 3s
 ENV MAX_IDLE_TIME 10s
 ENV MAX_EXTERNAL_PACKET_SIZE 1500
+ENV SEND_WINDOW 16777216
+ENV RECEIVE_WINDOW 8388608
 ENV GC_INTERVAL 3s
 ENV GC_LIFETIME 15s
 ENV LOG_LEVEL warn

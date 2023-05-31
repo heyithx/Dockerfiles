@@ -15,8 +15,11 @@ cat > tuic-server.json << EOF
     "zero_rtt_handshake": ${ZERO_RTT_HANDSHAKE},
     "dual_stack": ${DUAL_STACK},
     "auth_timeout": "${AUTH_TIMEOUT}",
+    "task_negotiation_timeout": "${TASK_NEGOTIATION_TIMEOUT}",
     "max_idle_time": "${MAX_IDLE_TIME}",
     "max_external_packet_size": ${MAX_EXTERNAL_PACKET_SIZE},
+    "send_window": ${SEND_WINDOW},
+    "receive_window": ${RECEIVE_WINDOW},
     "gc_interval": "${GC_INTERVAL}",
     "gc_lifetime": "${GC_LIFETIME}",
     "log_level": "${LOG_LEVEL}"

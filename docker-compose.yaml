@@ -39,7 +39,7 @@ services:
       - MODE=server
       - LISTEN=[::]:443
       - SERVER=127.0.0.1:8388 # 跟 snell/ss 监听的端口一致
-      - TLS=captive.apple.com:443;cloud.tencent.com:443
+      - TLS=captive.apple.com:443
       - PASSWORD=xxx # 改为自己的密码
       - ALPN=h2
       - DISABLE_NODELAY=0
