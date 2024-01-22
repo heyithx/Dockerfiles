@@ -1,19 +1,6 @@
 version: '3'
 
 services:
-  tuic:
-    image: ghcr.io/zenithiks/tuic:latest
-    restart: always
-    network_mode: "host"
-    environment:
-      - USERS=00000000-0000-0000-0000-000000000000:PASSWORD_0,00000000-0000-0000-0000-000000000001:PASSWORD_1 # 改为自己的UUID:PASSWORD
-      - CONGESTION_CONTROLLER=bbr
-      - UDP_RELAY_IPV6=true
-      - ZERO_RTT_HANDSHAKE=false
-      - DUAL_STACK=true
-    volumes:
-      - /root/fullchain.pem:/opt/tuic/fullchain.pem:ro
-      - /root/private.pem:/opt/tuic/private.pem:ro
   # ss:
   #   image: ghcr.io/zenithiks/ss:latest
   #   restart: always
@@ -26,6 +13,9 @@ services:
   snell:
     image: ghcr.io/zenithiks/snell:latest
     restart: always
+    logging:
+      options:
+        max-size: "1m"
     network_mode: "host"
     environment:
       - LISTEN=:::8388
@@ -34,6 +24,9 @@ services:
   stls:
     image: ghcr.io/ihciah/shadow-tls:latest
     restart: always
+    logging:
+      options:
+        max-size: "1m"
     network_mode: "host"
     environment:
       - MODE=server
