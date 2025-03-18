@@ -2,7 +2,7 @@ version: '3'
 
 services:
   # ss:
-  #   image: ghcr.io/zenithiks/ss:latest
+  #   image: ghcr.io/heyithx/ss:latest
   #   restart: always
   #   network_mode: "host"
   #   environment:
@@ -11,7 +11,7 @@ services:
   #     - PASSWORD=xxx # 改为自己的密码
   #     - METHOD=chacha20-ietf-poly1305
   snell:
-    image: ghcr.io/zenithiks/snell:latest
+    image: ghcr.io/heyithx/snell:latest
     restart: always
     logging:
       options:

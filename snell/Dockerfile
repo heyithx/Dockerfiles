@@ -9,7 +9,7 @@ RUN set -ex \
         && cp /usr/share/zoneinfo/$TZ /etc/localtime \
         && echo $TZ > /etc/timezone
         
-ARG VERSION=v4.0.1
+ARG VERSION
 
 RUN set -ex \
     && ARCH=""; \
@@ -22,9 +22,9 @@ RUN set -ex \
     && unzip snell-server.zip \
     && chmod +x snell-server
 
-FROM frolvlad/alpine-glibc:latest
+FROM woahbase/alpine-glibc
 
-LABEL maintainer="zenithiks <9955686@gmail.com>"
+LABEL maintainer="heyithx <9955686@gmail.com>"
 
 RUN set -ex \
         && apk add --no-cache \
